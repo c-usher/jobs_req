@@ -1,15 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 
-export const Form = () => {
-  const [jobInput, setJobInput] = useState("");
-
+export const Form = ({
+  setJobInput,
+  setJob,
+  job,
+  description,
+  setDescription,
+  jobInput,
+}) => {
   const inputJobHandler = (e) => {
-    console.log(e);
+    setJobInput(e.target.value);
+  };
+
+  const inputDescriptionHandler = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const addJobHandler = (e) => {
+    e.preventDefault();
+    setJob([
+      ...job,
+      {
+        title: jobInput,
+        description: description,
+        completed: false,
+        id: Math.floor(Math.random() * 1000),
+      },
+    ]);
   };
   return (
     <form>
-      <input type="text" className="job-input" />
-      <button className="submit-button" type="submit">
+      <input type="text" className="job-input" onChange={inputJobHandler} />
+      <input
+        type="text"
+        className="description-input"
+        onChange={inputDescriptionHandler}
+      />
+      <button className="submit-button" type="submit" onClick={addJobHandler}>
         Submit
       </button>
       <div className="sort">
