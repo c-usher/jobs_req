@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export const Form = ({
   setJobInput,
@@ -24,17 +25,25 @@ export const Form = ({
         title: jobInput,
         description: description,
         completed: false,
-        id: Math.floor(Math.random() * 1000),
+        id: uuidv4(),
       },
     ]);
+    setJobInput("");
+    setDescription("");
   };
   return (
     <form>
-      <input type="text" className="job-input" onChange={inputJobHandler} />
+      <input
+        type="text"
+        className="job-input"
+        onChange={inputJobHandler}
+        value={jobInput}
+      />
       <input
         type="text"
         className="description-input"
         onChange={inputDescriptionHandler}
+        value={description}
       />
       <button className="submit-button" type="submit" onClick={addJobHandler}>
         Submit
